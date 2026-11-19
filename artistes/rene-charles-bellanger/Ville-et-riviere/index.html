@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -5,7 +6,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Ville et rivière — René Charles Bellanger</title>
 
-
+<style>
 :root {
     --imagen-principal: url("./fondo-index.jpg");
     --color-papel: #E6E5E5;
@@ -117,7 +118,6 @@ body {
     margin: 0 auto;
 }
 
-/* TITULOS */
 .cuerpo h2 {
     font-family: "Avenir Next", Avenir, "Segoe UI", sans-serif;
     font-size: 0.95rem;
@@ -134,7 +134,6 @@ body {
 
 .cuerpo h2:first-child { margin-top: 0; }
 
-/* TEXTO GENERAL */
 .cuerpo p, .cuerpo li {
     font-size: 0.95rem;
     line-height: 1.65;
@@ -149,7 +148,6 @@ body {
     margin-bottom: 16px;
 }
 
-/* OBRA PRINCIPAL */
 .presentacion-principal {
     width: 100%;
     min-width: 0;
@@ -166,6 +164,7 @@ body {
     margin: 0 auto;
     object-fit: contain;
     object-position: center;
+    cursor: zoom-in;
 }
 
 .titulo-obra-principal {
@@ -195,7 +194,6 @@ body {
     color: #55514a;
 }
 
-/* NAVEGACION */
 .navegacion {
     position: absolute;
     bottom: 13px;
@@ -234,7 +232,6 @@ body {
     font-weight: 600;
 }
 
-/* GALERIA */
 .galeria {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -261,9 +258,6 @@ body {
     height: 160px;
     object-fit: contain;
     background: transparent;
-}
-
-.tarjeta-obra img[onclick] {
     cursor: zoom-in;
 }
 
@@ -287,7 +281,6 @@ body {
     line-height: 1.5;
 }
 
-/* SOURCES */
 .sources {
     font-size: 0.85rem !important;
     line-height: 1.7 !important;
@@ -300,7 +293,6 @@ body {
     text-underline-offset: 3px;
 }
 
-/* VISOR DE IMAGENES */
 #visor-imagen {
     display: none;
     position: fixed;
@@ -343,9 +335,7 @@ body {
     z-index: 10001;
 }
 
-/* VERSION MOVIL */
 @media (max-width: 600px) {
-
     body {
         display: block;
         padding: 8px;
@@ -367,17 +357,11 @@ body {
         padding: 42px 18px 72px;
     }
 
-    .encabezado-marca {
-        margin-bottom: 10px;
-    }
+    .encabezado-marca { margin-bottom: 10px; }
 
-    .imagen-principal-obra {
-        height: 190px;
-    }
+    .imagen-principal-obra { height: 190px; }
 
-    .titulo-obra-principal {
-        font-size: 1.15rem;
-    }
+    .titulo-obra-principal { font-size: 1.15rem; }
 
     .detalle-obra-principal {
         font-size: 0.78rem;
@@ -397,30 +381,20 @@ body {
         margin-bottom: 13px;
     }
 
-    .cuerpo ul {
-        margin-left: 20px;
-    }
+    .cuerpo ul { margin-left: 20px; }
 
-    .firma {
-        font-size: 1.55rem;
-    }
+    .firma { font-size: 1.55rem; }
 
-    .galeria {
-        gap: 9px;
-    }
+    .galeria { gap: 9px; }
 
-    .tarjeta-obra img {
-        height: 125px;
-    }
+    .tarjeta-obra img { height: 125px; }
 
     .info-obra {
         padding: 8px;
         gap: 5px;
     }
 
-    .info-obra strong {
-        font-size: 0.85rem;
-    }
+    .info-obra strong { font-size: 0.85rem; }
 
     .info-obra span {
         font-size: 0.75rem;
@@ -432,9 +406,7 @@ body {
         line-height: 1.7 !important;
     }
 
-    .indicador {
-        font-size: 0.78rem;
-    }
+    .indicador { font-size: 0.78rem; }
 
     .navegacion {
         right: 10px;
@@ -455,20 +427,15 @@ body {
         padding-right: 14px;
     }
 
-    .cuerpo p, .cuerpo li {
-        font-size: 0.95rem;
-    }
+    .cuerpo p, .cuerpo li { font-size: 0.95rem; }
 
-    .galeria {
-        gap: 7px;
-    }
+    .galeria { gap: 7px; }
 
-    .tarjeta-obra img {
-        height: 110px;
-    }
+    .tarjeta-obra img { height: 110px; }
 }
 </style>
 </head>
+
 <body>
 <div class="lienzo-a4">
 
@@ -483,7 +450,8 @@ body {
             <div class="presentacion-principal">
                 <img src="./cuadro.jpg"
                      alt="Ville et rivière — René Charles Bellanger"
-                     class="imagen-principal-obra">
+                     class="imagen-principal-obra"
+                     onclick="abrirImagen(event, this.src)">
                 <div class="titulo-obra-principal">Ville et rivière</div>
                 <div class="detalle-obra-principal">RENÉ CHARLES BELLANGER · DATE NON DOCUMENTÉE</div>
             </div>
@@ -590,41 +558,41 @@ body {
                     toutefois pas de confirmer qu’elle a effectivement eu lieu.
                 </p>
 
-               
+                <h2>Galerie — Autres œuvres de René Charles Bellanger</h2>
 
-<h2>Galerie — Autres œuvres de René Charles Bellanger</h2>
+                <div class="galeria">
 
-<div class="galeria">
+                    <!-- Première référence : l'autre œuvre -->
+                    <a href="../Voiles-devant-la-ville/" class="tarjeta-obra">
+                        <img src="../Voiles-devant-la-ville/cuadro.jpg"
+                             alt="Voiles devant la ville — René Charles Bellanger">
+                        <div class="info-obra">
+                            <strong>Voiles devant la ville</strong>
+                            <span>Huile sur carton mince</span>
+                            <span>41 × 33 cm · Non signée</span>
+                        </div>
+                    </a>
 
-    <!-- Première référence : l'autre œuvre -->
-    <a href="../Ville-et-riviere/"
-       class="tarjeta-obra">
-        <img src="../Ville-et-riviere/cuadro.jpg"
-             alt="Ville et rivière">
-        <div class="info-obra">
-            <strong>Ville et rivière</strong>
-            <span>Huile sur carton mince</span>
-            <span>33 × 45 cm · Signée en bas à droite</span>
-        </div>
-    </a>
+                    <!-- Trois autres œuvres -->
+                    <div class="tarjeta-obra">
+                        <img src="./galeria%201.jpg"
+                             alt="Autre œuvre de René Charles Bellanger"
+                             onclick="ouvrirImage(event, this.src)">
+                    </div>
 
-    <!-- Trois autres œuvres -->
-    <div class="tarjeta-obra">
-        <img src="./galeria%201.jpg"
-             alt="Autre œuvre de René Charles Bellanger">
-    </div>
+                    <div class="tarjeta-obra">
+                        <img src="./galeria%202.jpg"
+                             alt="Autre œuvre de René Charles Bellanger"
+                             onclick="ouvrirImage(event, this.src)">
+                    </div>
 
-    <div class="tarjeta-obra">
-        <img src="./galeria%202.jpg"
-             alt="Autre œuvre de René Charles Bellanger">
-    </div>
+                    <div class="tarjeta-obra">
+                        <img src="./galeria%203.jpg"
+                             alt="Autre œuvre de René Charles Bellanger"
+                             onclick="ouvrirImage(event, this.src)">
+                    </div>
 
-    <div class="tarjeta-obra">
-        <img src="./galeria%203.jpg"
-             alt="Autre œuvre de René Charles Bellanger">
-    </div>
-
-</div>
+                </div>
 
                 <p class="sources">
                     <strong>SOURCES</strong><br><br>
@@ -666,21 +634,27 @@ body {
 function cambiarPagina(numero) {
     document.getElementById("hoja1").style.display =
         numero === 1 ? "flex" : "none";
+
     document.getElementById("hoja2").style.display =
         numero === 2 ? "flex" : "none";
 }
+
 function abrirImagen(event, ruta) {
     event.preventDefault();
     document.getElementById("imagen-ampliada").src = ruta;
     document.getElementById("visor-imagen").classList.add("activo");
 }
+
 function cerrarImagen() {
     document.getElementById("visor-imagen").classList.remove("activo");
     document.getElementById("imagen-ampliada").src = "";
 }
+
 document.addEventListener("keydown", function(event) {
     if (event.key === "Escape") cerrarImagen();
 });
 </script>
+
 </body>
 </html>
+
