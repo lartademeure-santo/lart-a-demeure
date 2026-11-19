@@ -1,1 +1,727 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Roger Crusat — Catalogue Raisonné</title>
 
+
+:root {
+    --imagen-principal: url("./fondo-index.jpg");
+    --color-papel: #E6E5E5;
+    --texto-dark: #37352f;
+    --texto-muted: #66635d;
+    --borde: #edeef0;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html, body {
+    width: 100%;
+    min-height: 100%;
+    overflow-x: hidden;
+}
+
+body {
+    font-family: "Avenir Next", Avenir, "Segoe UI", Helvetica, Arial, sans-serif;
+    background: #e5e5e5;
+    color: var(--texto-dark);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 20px;
+    -webkit-font-smoothing: antialiased;
+}
+
+.lienzo-a4 {
+    width: 100%;
+    max-width: 750px;
+    aspect-ratio: 1 / 1.4142;
+    position: relative;
+    overflow: hidden;
+    background-image: var(--imagen-principal);
+    background-size: cover;
+    background-position: center;
+    box-shadow: 0 30px 60px rgba(0,0,0,0.35);
+}
+
+.hoja {
+    position: absolute;
+    z-index: 2;
+    width: 75%;
+    height: 85%;
+    top: 7.5%;
+    left: 12.5%;
+    background: linear-gradient(225deg, transparent 42px, var(--color-papel) 42px);
+    padding: 48px 30px 78px;
+    display: flex;
+    flex-direction: column;
+    box-shadow: -1px 1px 0 rgba(255,255,255,0.6) inset,
+                20px 30px 45px rgba(0,0,0,0.40),
+                5px 10px 20px rgba(0,0,0,0.20);
+    border-right: 1.5px solid rgba(0,0,0,0.12);
+    border-bottom: 2px solid rgba(0,0,0,0.15);
+    min-width: 0;
+}
+
+.hoja::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 42px;
+    height: 42px;
+    background: linear-gradient(225deg, transparent 50%, #fff 50%);
+    box-shadow: -5px 5px 8px rgba(0,0,0,0.18);
+    pointer-events: none;
+    z-index: 5;
+}
+
+#hoja1 { display: flex; }
+#hoja2 { display: none; }
+
+.contenido-scroll {
+    position: relative;
+    z-index: 1;
+    flex: 1;
+    min-height: 0;
+    min-width: 0;
+    width: 100%;
+    overflow-y: auto;
+    overflow-x: hidden;
+    scrollbar-width: thin;
+    padding: 0 5px 8px 0;
+    -webkit-overflow-scrolling: touch;
+}
+
+.encabezado-marca {
+    position: relative;
+    z-index: 2;
+    display: block;
+    width: 100%;
+    margin: 0 auto 30px;
+    text-align: center;
+}
+
+.logo-proyecto {
+    display: block;
+    width: 100%;
+    max-width: 100%;
+    height: auto;
+    object-fit: contain;
+    margin: 0 auto;
+}
+
+/* TITULOS */
+.cuerpo h2 {
+    font-family: "Avenir Next", Avenir, "Segoe UI", sans-serif;
+    font-size: 0.95rem;
+    line-height: 1.5;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-top: 19px;
+    margin-bottom: 10px;
+    color: #282722;
+    border-bottom: 1px solid rgba(0,0,0,0.13);
+    padding-bottom: 7px;
+}
+
+.cuerpo h2:first-child { margin-top: 0; }
+
+/* TEXTO GENERAL */
+.cuerpo p, .cuerpo li {
+    font-size: 0.95rem;
+    line-height: 1.65;
+    font-weight: 400;
+    color: #34332f;
+    text-align: left;
+    margin-bottom: 12px;
+}
+
+.cuerpo ul {
+    margin-left: 22px;
+    margin-bottom: 16px;
+}
+
+/* OBRA PRINCIPAL */
+.presentacion-principal {
+    width: 100%;
+    min-width: 0;
+    text-align: center;
+    margin-bottom: 16px;
+    overflow: hidden;
+}
+
+.imagen-principal-obra {
+    display: block;
+    width: 100%;
+    max-width: 100%;
+    height: 220px;
+    margin: 0 auto;
+    object-fit: contain;
+    object-position: center;
+}
+
+.titulo-obra-principal {
+    font-family: Baskerville, "Palatino Linotype", Georgia, serif;
+    font-size: 1.2rem;
+    line-height: 1.4;
+    font-weight: 400;
+    letter-spacing: 0.25px;
+    margin-top: 10px;
+    color: #26251f;
+}
+
+.detalle-obra-principal {
+    font-size: 0.82rem;
+    line-height: 1.5;
+    color: #66635d;
+    margin-top: 7px;
+    letter-spacing: 1px;
+}
+
+.firma {
+    font-family: Baskerville, "Palatino Linotype", Georgia, serif;
+    font-size: 1.8rem;
+    font-style: italic;
+    text-align: right;
+    margin-top: 24px;
+    color: #55514a;
+}
+
+/* NAVEGACION */
+.navegacion {
+    position: absolute;
+    bottom: 13px;
+    right: 16px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    z-index: 10;
+}
+
+.btn-flecha {
+    width: 48px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255,255,255,0.92);
+    border: 1px solid rgba(0,0,0,0.18);
+    border-radius: 50%;
+    font-size: 1.8rem;
+    color: #37352f;
+    cursor: pointer;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.15);
+    transition: transform 0.2s ease, background 0.2s ease;
+}
+
+.btn-flecha:hover {
+    background: #fff;
+    transform: scale(1.06);
+}
+
+.indicador {
+    font-size: 0.8rem;
+    color: #555;
+    letter-spacing: 1px;
+    font-weight: 600;
+}
+
+/* GALERIA */
+.galeria {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+    margin-top: 13px;
+    width: 100%;
+}
+
+.tarjeta-obra {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    overflow: hidden;
+    background: rgba(255,255,255,0.72);
+    border: 1px solid var(--borde);
+    border-radius: 4px;
+    text-decoration: none;
+    color: inherit;
+}
+
+.tarjeta-obra img {
+    display: block;
+    width: 100%;
+    height: 160px;
+    object-fit: contain;
+    background: transparent;
+}
+
+.tarjeta-obra img[onclick] {
+    cursor: zoom-in;
+}
+
+.info-obra {
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 6px;
+}
+
+.info-obra strong {
+    font-size: 0.88rem;
+    line-height: 1.4;
+    font-weight: 600;
+}
+
+.info-obra span {
+    font-size: 0.78rem;
+    color: var(--texto-muted);
+    line-height: 1.5;
+}
+
+/* SOURCES */
+.sources {
+    font-size: 0.85rem !important;
+    line-height: 1.7 !important;
+    margin-top: 18px;
+}
+
+.sources a {
+    color: #45433e;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+}
+
+/* VISOR DE IMAGENES */
+#visor-imagen {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    background: rgba(0,0,0,0.92);
+    align-items: center;
+    justify-content: center;
+    padding: 60px 25px 25px;
+}
+
+#visor-imagen.activo { display: flex; }
+
+#imagen-ampliada {
+    display: block;
+    max-width: 95%;
+    max-height: 90%;
+    width: auto;
+    height: auto;
+    object-fit: contain;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+}
+
+.btn-cerrar {
+    position: fixed;
+    top: 20px;
+    right: 24px;
+    width: 46px;
+    height: 46px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #fff;
+    color: #222;
+    border: 2px solid #fff;
+    border-radius: 50%;
+    font-family: Arial, sans-serif;
+    font-size: 32px;
+    cursor: pointer;
+    z-index: 10001;
+}
+
+/* VERSION MOVIL */
+@media (max-width: 600px) {
+
+    body {
+        display: block;
+        padding: 8px;
+        min-height: 100vh;
+    }
+
+    .lienzo-a4 {
+        width: 100%;
+        min-height: calc(100vh - 16px);
+        height: calc(100vh - 16px);
+        aspect-ratio: auto;
+    }
+
+    .hoja {
+        width: 88%;
+        left: 6%;
+        height: 90%;
+        top: 5%;
+        padding: 42px 18px 72px;
+    }
+
+    .encabezado-marca {
+        margin-bottom: 10px;
+    }
+
+    .imagen-principal-obra {
+        height: 190px;
+    }
+
+    .titulo-obra-principal {
+        font-size: 1.15rem;
+    }
+
+    .detalle-obra-principal {
+        font-size: 0.78rem;
+        letter-spacing: 0.8px;
+    }
+
+    .cuerpo h2 {
+        font-size: 0.95rem;
+        margin-top: 18px;
+        margin-bottom: 10px;
+        letter-spacing: 0.8px;
+    }
+
+    .cuerpo p, .cuerpo li {
+        font-size: 1rem;
+        line-height: 1.65;
+        margin-bottom: 13px;
+    }
+
+    .cuerpo ul {
+        margin-left: 20px;
+    }
+
+    .firma {
+        font-size: 1.55rem;
+    }
+
+    .galeria {
+        gap: 9px;
+    }
+
+    .tarjeta-obra img {
+        height: 125px;
+    }
+
+    .info-obra {
+        padding: 8px;
+        gap: 5px;
+    }
+
+    .info-obra strong {
+        font-size: 0.85rem;
+    }
+
+    .info-obra span {
+        font-size: 0.75rem;
+        line-height: 1.45;
+    }
+
+    .sources {
+        font-size: 0.9rem !important;
+        line-height: 1.7 !important;
+    }
+
+    .indicador {
+        font-size: 0.78rem;
+    }
+
+    .navegacion {
+        right: 10px;
+        bottom: 8px;
+        gap: 8px;
+    }
+
+    .btn-flecha {
+        width: 46px;
+        height: 46px;
+        font-size: 1.65rem;
+    }
+}
+
+@media (max-width: 360px) {
+    .hoja {
+        padding-left: 14px;
+        padding-right: 14px;
+    }
+
+    .cuerpo p, .cuerpo li {
+        font-size: 0.95rem;
+    }
+
+    .galeria {
+        gap: 7px;
+    }
+
+    .tarjeta-obra img {
+        height: 110px;
+    }
+}
+</style>
+
+</head>
+
+<body>
+<div class="lienzo-a4">
+
+    <!-- PREMIÈRE PAGE -->
+    <section class="hoja" id="hoja1">
+        <div class="contenido-scroll">
+
+            <div class="encabezado-marca">
+                <img src="./logo.png"
+                     alt="L'Art à Demeure"
+                     class="logo-proyecto">
+            </div>
+
+            <div class="presentacion-principal">
+                <img src="./cuadro.jpeg"
+                     alt="Femme aux yeux fermés — Roger Crusat"
+                     class="imagen-principal-obra">
+
+                <div class="titulo-obra-principal">
+                    Femme aux yeux fermés
+                </div>
+                <div class="detalle-obra-principal">
+                    ROGER CRUSAT · 1955
+                </div>
+            </div>
+
+            <div class="cuerpo">
+                <h2>Présentation de l'œuvre</h2>
+                <p>
+                    <strong>Femme aux yeux fermés</strong> est une œuvre
+                    réalisée par Roger Crusat en 1955, au pastel sur papier.
+                    Elle témoigne d’un moment de son parcours artistique.
+                    Sa présentation iconographique sera enrichie à partir
+                    de l’observation de l’œuvre originale.
+                </p>
+
+                <h2>L'artiste</h2>
+                <p>
+                    Roger Crusat (1917–1994) est un peintre, lithographe
+                    et poète français d’identité catalane. Né à Perpignan,
+                    il a développé une grande partie de son parcours
+                    artistique à Paris, notamment dans le quartier de
+                    Montmartre, où il a fréquenté la cité d’artistes des
+                    Fusains. Surnommé « le peintre catalan de Montmartre »,
+                    il a construit une œuvre personnelle, nourrie par son
+                    attachement à la culture catalane et par la vie
+                    artistique parisienne.
+                </p>
+
+                <h2>Données techniques</h2>
+                <ul>
+                    <li>Artiste : Roger Crusat (1917–1994)</li>
+                    <li>Titre : Femme aux yeux fermés</li>
+                    <li>Date : 1955</li>
+                    <li>Technique : Pastel sur papier</li>
+                </ul>
+
+                <div class="firma">Roger Crusat</div>
+            </div>
+        </div>
+
+        <div class="navegacion">
+            <span class="indicador">01 / 02</span>
+            <button class="btn-flecha"
+                    onclick="cambiarPagina(2)"
+                    aria-label="Page suivante">→</button>
+        </div>
+    </section>
+
+    <!-- DEUXIÈME PAGE -->
+    <section class="hoja" id="hoja2">
+        <div class="contenido-scroll">
+            <div class="cuerpo">
+
+                <h2>Formation et parcours artistique</h2>
+                <p>
+                    Roger Crusat se forme d’abord auprès d’André
+                    Fons-Godail à l’École des beaux-arts de Perpignan.
+                    Après sa mobilisation pendant la Seconde Guerre
+                    mondiale, il poursuit ses études à Paris auprès de
+                    René Jaudon, à l’École nationale supérieure des
+                    beaux-arts. Dans sa jeunesse, il participe également
+                    à une compagnie de ballet, pour laquelle il réalise
+                    des costumes et des décors, tout en pratiquant
+                    la danse.
+                </p>
+
+                <p>
+                    Installé à Montmartre, notamment dans la cité
+                    d’artistes des Fusains, il prend part à la vie
+                    artistique parisienne. Il devient sociétaire du
+                    Salon des Indépendants, du Salon d’Automne et de
+                    la Société nationale des beaux-arts. Son parcours
+                    comprend des expositions à Paris et en région,
+                    ainsi que des présentations à l’étranger, notamment
+                    à Genève et Bruxelles, et dans des expositions
+                    collectives en Belgique, au Japon et au Mexique.
+                </p>
+
+                <h2>Expositions et distinctions</h2>
+                <p>
+                    Roger Crusat participe à plusieurs manifestations
+                    artistiques importantes au cours de sa carrière.
+                    Parmi les expositions et présentations documentées
+                    figurent notamment :
+                </p>
+
+                <ul>
+                    <li>Galerie Roger, Lyon, 1946.</li>
+                    <li>Salon d’hiver, au Musée d’art moderne de la Ville
+                        de Paris, en 1946, 1949 et 1950.</li>
+                    <li>Galerie Durand-Ruel, Paris, 1955.</li>
+                    <li>Galerie E.-J. Rivière, Paris, 1958.</li>
+                </ul>
+
+                <p>
+                    En 1956, il reçoit le Prix du Salon populiste pour
+                    son œuvre <em>Descente de gouttière</em>. En 1957,
+                    certaines sources mentionnent également le Grand
+                    Prix des Amis de Brantôme, dont la date reste
+                    à confirmer.
+                </p>
+
+                <p>
+                    Son parcours témoigne de sa participation active
+                    à la scène artistique française du XXe siècle.
+                </p>
+
+                <h2>Galerie — Autres œuvres de Roger Crusat</h2>
+                <div class="galeria">
+
+                    <a href="./galeria%201.jpg"
+                       class="tarjeta-obra"
+                       onclick="abrirImagen(event, this.href)">
+                        <img src="./galeria%201.jpg"
+                             alt="Grand Bouquet de fleurs">
+                        <div class="info-obra">
+                            <strong>Grand Bouquet de fleurs</strong>
+                            <span>Vers 1950 · Huile sur toile</span>
+                            <span>Source : Proantic</span>
+                        </div>
+                    </a>
+
+                    <a href="./galeria%202.jpg"
+                       class="tarjeta-obra"
+                       onclick="abrirImagen(event, this.href)">
+                        <img src="./galeria%202.jpg"
+                             alt="Poupée 1925">
+                        <div class="info-obra">
+                            <strong>Poupée 1925</strong>
+                            <span>Huile sur toile</span>
+                            <span>130,81 × 97,79 cm</span>
+                        </div>
+                    </a>
+
+                    <a href="./galeria%203.jpg"
+                       class="tarjeta-obra"
+                       onclick="abrirImagen(event, this.href)">
+                        <img src="./galeria%203.jpg"
+                             alt="Femme assise">
+                        <div class="info-obra">
+                            <strong>Femme assise</strong>
+                            <span>Huile sur toile · Œuvre signée</span>
+                            <span>Roger Crusat (1917–1994)</span>
+                        </div>
+                    </a>
+
+                </div>
+
+                <p class="sources">
+                    <strong>Sources documentaires :</strong><br><br>
+                    Proantic — annonce commerciale pour
+                    <em>Grand Bouquet de fleurs</em>.<br><br>
+
+                    <a href="https://www.1stdibs.com/es/arte/pinturas/pinturas-figurativas/roger-crusat-gran-óleo-expresionista-francés-niña-poupèe-la-muñeca-escuela-de-parís/id-a_15114322/"
+                       target="_blank" rel="noopener">
+                        1stDibs — Poupée 1925
+                    </a><br><br>
+
+                    <a href="https://fr.artprice.com/place-de-marche/2208856/peinture/femme-assise"
+                       target="_blank" rel="noopener">
+                        Artprice — Femme assise
+                    </a>
+                </p>
+
+                <div class="firma">Roger Crusat</div>
+            </div>
+        </div>
+
+        <div class="navegacion">
+            <span class="indicador">02 / 02</span>
+            <button class="btn-flecha"
+                    onclick="cambiarPagina(1)"
+                    aria-label="Page précédente">←</button>
+        </div>
+    </section>
+</div>
+
+<!-- VISOR DE IMÁGENES -->
+<div id="visor-imagen" onclick="cerrarImagen()">
+
+    <button type="button"
+            class="btn-cerrar"
+            onclick="event.stopPropagation(); cerrarImagen();"
+            aria-label="Fermer l'image">×</button>
+
+    <img id="imagen-ampliada"
+         src=""
+         alt="Œuvre agrandie"
+         onclick="event.stopPropagation()">
+
+</div>
+
+<script>
+function cambiarPagina(numero) {
+    const hoja1 = document.getElementById("hoja1");
+    const hoja2 = document.getElementById("hoja2");
+
+    if (numero === 1) {
+        hoja1.style.display = "flex";
+        hoja2.style.display = "none";
+    } else {
+        hoja1.style.display = "none";
+        hoja2.style.display = "flex";
+    }
+}
+
+function abrirImagen(event, ruta) {
+    event.preventDefault();
+
+    const visor = document.getElementById("visor-imagen");
+    const imagen = document.getElementById("imagen-ampliada");
+
+    imagen.src = ruta;
+    visor.classList.add("activo");
+}
+
+function cerrarImagen() {
+    const visor = document.getElementById("visor-imagen");
+    const imagen = document.getElementById("imagen-ampliada");
+
+    visor.classList.remove("activo");
+    imagen.src = "";
+}
+
+document.addEventListener("keydown", function(event) {
+    if (event.key === "Escape") {
+        cerrarImagen();
+    }
+});
+</script>
+
+</body>
+</html>
