@@ -1,0 +1,509 @@
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Fragment architectural — Jean-Michel Deny | L’ART À DEMEURE</title>
+
+<style>
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    background: #e8e5df;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: Georgia, "Times New Roman", serif;
+    color: #292722;
+}
+
+.lienzo-a4 {
+    position: relative;
+    width: 100%;
+    max-width: 750px;
+    aspect-ratio: 210 / 297;
+    overflow: hidden;
+    background-image: url("./fondo-index.jpg");
+    background-size: cover;
+    background-position: center;
+    box-shadow: 0 5px 25px rgba(0,0,0,0.18);
+}
+
+.hoja {
+    position: absolute;
+    top: 7.5%;
+    left: 12.5%;
+    width: 75%;
+    height: 85%;
+    padding: 48px 30px 78px;
+    display: flex;
+    flex-direction: column;
+    background: rgba(250,248,242,0.91);
+    overflow: hidden;
+}
+
+.logo {
+    width: 85px;
+    height: auto;
+    object-fit: contain;
+    margin-bottom: 20px;
+}
+
+.surtitre {
+    font-family: Arial, sans-serif;
+    font-size: 10px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: #777064;
+    margin-bottom: 10px;
+}
+
+h1 {
+    font-size: 27px;
+    font-weight: normal;
+    line-height: 1.2;
+    margin: 0 0 7px;
+}
+
+h2 {
+    font-size: 17px;
+    font-weight: normal;
+    font-style: italic;
+    margin: 0 0 20px;
+    color: #625d53;
+}
+
+h3 {
+    font-size: 17px;
+    font-weight: normal;
+    margin: 24px 0 10px;
+}
+
+.contenido-scroll {
+    position: relative;
+    z-index: 1;
+    flex: 1 1 auto;
+    min-height: 0;
+    min-width: 0;
+    width: 100%;
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding: 0 5px 12px 0;
+    scrollbar-width: thin;
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior: contain;
+}
+
+.cuerpo {
+    flex: 0 0 auto;
+    min-width: 0;
+}
+
+.image-principale {
+    width: 100%;
+    max-height: 330px;
+    display: block;
+    object-fit: contain;
+    margin: 12px auto 18px;
+    cursor: zoom-in;
+}
+
+.legende {
+    font-size: 12px;
+    line-height: 1.6;
+    color: #686258;
+    text-align: center;
+    margin: 8px 0 18px;
+}
+
+.fiche-technique {
+    border-top: 1px solid rgba(100,90,75,0.35);
+    border-bottom: 1px solid rgba(100,90,75,0.35);
+    padding: 13px 0;
+    margin: 16px 0;
+    font-family: Arial, sans-serif;
+    font-size: 12px;
+    line-height: 1.8;
+}
+
+.fiche-technique p {
+    margin: 3px 0;
+}
+
+.texte {
+    font-size: 14px;
+    line-height: 1.75;
+    text-align: justify;
+    margin: 0 0 14px;
+}
+
+.sources {
+    margin-top: 28px;
+    padding-top: 12px;
+    border-top: 1px solid rgba(100,90,75,0.35);
+    font-family: Arial, sans-serif;
+    font-size: 10px;
+    line-height: 1.7;
+    color: #777064;
+}
+
+.sources a {
+    color: #777064;
+    text-decoration: underline;
+    text-underline-offset: 2px;
+}
+
+.sources a:hover {
+    color: #292722;
+}
+
+.navegacion {
+    position: absolute;
+    bottom: 13px;
+    right: 16px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    z-index: 10;
+}
+
+.indicador {
+    font-family: Arial, sans-serif;
+    font-size: 11px;
+    color: #625d53;
+    letter-spacing: 1px;
+}
+
+.btn-flecha {
+    width: 48px;
+    height: 48px;
+    border: 1px solid rgba(80,70,55,0.55);
+    border-radius: 50%;
+    background: rgba(250,248,242,0.8);
+    color: #38342e;
+    font-size: 23px;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.btn-flecha:hover {
+    background: #e8e1d4;
+}
+
+.hoja-oculta {
+    display: none;
+}
+
+/* Visor de imagen */
+
+#visor-imagen {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 1000;
+    background: rgba(0,0,0,0.92);
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    cursor: zoom-out;
+}
+
+#visor-imagen img {
+    max-width: 95%;
+    max-height: 95%;
+    object-fit: contain;
+}
+
+/* Adaptación móvil */
+
+@media (max-width: 600px) {
+    body {
+        align-items: flex-start;
+        background: #e8e5df;
+    }
+
+    .lienzo-a4 {
+        min-height: 100vh;
+        aspect-ratio: auto;
+        box-shadow: none;
+    }
+
+    .hoja {
+        top: 4%;
+        left: 5%;
+        width: 90%;
+        height: 92%;
+        padding: 30px 20px 68px;
+    }
+
+    h1 {
+        font-size: 23px;
+    }
+
+    h2 {
+        font-size: 16px;
+    }
+
+    .texte {
+        font-size: 14px;
+        line-height: 1.7;
+    }
+
+    .image-principale {
+        max-height: 300px;
+    }
+
+    .navegacion {
+        right: 10px;
+        bottom: 8px;
+    }
+
+    .btn-flecha {
+        width: 42px;
+        height: 42px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="lienzo-a4">
+
+    <!-- PAGE 1 : L'ŒUVRE -->
+
+    <section class="hoja" id="hoja1">
+
+        <img class="logo" src="../../assets/logo.png"
+             alt="L’ART À DEMEURE">
+
+        <div class="surtitre">L’ART À DEMEURE · COLLECTION</div>
+
+        <div class="contenido-scroll">
+            <div class="cuerpo">
+
+                <h1>Fragment architectural</h1>
+                <h2>Jean-Michel Deny (né en 1950)</h2>
+
+                <img
+                    class="image-principale"
+                    src="./cuadro.jpg"
+                    alt="Jean-Michel Deny, Fragment architectural, 1988"
+                    onclick="abrirImagen(this.src)"
+                >
+
+                <p class="legende">
+                    Jean-Michel Deny<br>
+                    <em>Fragment architectural</em>, 1988
+                </p>
+
+                <div class="fiche-technique">
+                    <p><strong>Artiste :</strong> Jean-Michel Deny</p>
+                    <p><strong>Titre :</strong> <em>Fragment architectural</em></p>
+                    <p><strong>Date :</strong> 1988</p>
+                    <p><strong>Technique :</strong> Technique mixte sur papier, montée sur papier</p>
+                    <p><strong>Dimensions :</strong> 18,5 × 22,3 cm</p>
+                    <p><strong>Inscription :</strong> Signée, titrée et numérotée 191 dans la marge inférieure ; numérotée et datée au dos du montage</p>
+                </div>
+
+                <h3>À propos de l’œuvre</h3>
+
+                <p class="texte">
+                    Réalisé en 1988, <em>Fragment architectural</em>
+                    appartient aux premières années de la démarche
+                    artistique de Jean-Michel Deny, qui choisit en 1986
+                    de se consacrer pleinement au dessin, à la peinture
+                    et à l’écriture.
+                </p>
+
+                <p class="texte">
+                    Le titre évoque une approche fragmentaire de
+                    l’architecture : un élément isolé, une structure
+                    ou un détail envisagé indépendamment de son
+                    ensemble. Il invite à regarder la construction
+                    non comme un édifice complet, mais comme un
+                    assemblage de formes et de relations.
+                </p>
+
+                <p class="texte">
+                    Réalisée sur papier selon une technique mixte,
+                    puis montée sur papier, cette œuvre témoigne
+                    d'un travail sur un support que l'artiste
+                    privilégiera tout au long de son parcours.
+                </p>
+
+                <p class="texte">
+                    La numérotation 191 inscrite dans la marge
+                    inférieure constitue un élément documentaire
+                    intéressant. Elle pourrait correspondre au
+                    classement de l'atelier, sans que sa signification
+                    exacte puisse être affirmée à ce stade.
+                </p>
+
+            </div>
+        </div>
+
+        <div class="navegacion">
+            <span class="indicador">1 / 2</span>
+            <button class="btn-flecha"
+                    onclick="cambiarPagina(2)"
+                    aria-label="Page suivante">→</button>
+        </div>
+
+    </section>
+
+
+    <!-- PAGE 2 : L'ARTISTE -->
+
+    <section class="hoja hoja-oculta" id="hoja2">
+
+        <img class="logo" src="../../assets/logo.png"
+             alt="L’ART À DEMEURE">
+
+        <div class="surtitre">L’ARTISTE</div>
+
+        <div class="contenido-scroll">
+            <div class="cuerpo">
+
+                <h1>Jean-Michel Deny</h1>
+                <h2>Le dessin, la peinture et l’écriture</h2>
+
+                <p class="texte">
+                    Né en 1950 dans la région parisienne, Jean-Michel
+                    Deny choisit en 1986 d'abandonner son activité
+                    professionnelle pour se consacrer au dessin,
+                    à la peinture et, dans une moindre mesure,
+                    à l'écriture.
+                </p>
+
+                <p class="texte">
+                    Son travail est principalement réalisé sur papier,
+                    dans des formats souvent modestes. Ses œuvres
+                    sont présentées par des galeries à Aix-en-Provence,
+                    Bordeaux, Grenoble, Lyon, Nice et Paris, et entrent
+                    dans des collections privées en France, en Suisse,
+                    en Belgique et au Japon.
+                </p>
+
+                <p class="texte">
+                    Son univers artistique se caractérise par une
+                    inspiration à la fois poétique et ironique.
+                    Avec un regard attentif et souvent amusé,
+                    l'artiste observe les travers de la comédie
+                    humaine et les curiosités de la nature.
+                </p>
+
+                <p class="texte">
+                    Au fil des années, l'écriture prend une place
+                    de plus en plus importante dans sa création.
+                    Les mots s'introduisent progressivement dans
+                    ses dessins, jusqu'à brouiller les frontières
+                    entre image et texte.
+                </p>
+
+                <p class="texte">
+                    En 2011, après avoir numéroté 1 200 dessins
+                    qu'il estimait dignes d'être présentés au public,
+                    Jean-Michel Deny abandonne progressivement
+                    le dessin au profit de tableaux entièrement
+                    couverts de texte. Cette évolution marque
+                    l'aboutissement de vingt-cinq années
+                    d'expérimentation et de recherche.
+                    Il se consacre dès lors exclusivement à l'écriture.
+                </p>
+
+                <h3>Une œuvre au début d'un parcours</h3>
+
+                <p class="texte">
+                    Daté de 1988, <em>Fragment architectural</em>
+                    prend place dans cette première période de
+                    recherche personnelle, deux ans après le choix
+                    de l'artiste de se consacrer entièrement à sa
+                    pratique artistique.
+                </p>
+
+                <p class="texte">
+                    Cette petite composition sur papier permet
+                    ainsi d'aborder une étape précoce d'un parcours
+                    qui conduira progressivement l'artiste vers
+                    une relation toujours plus étroite entre
+                    l'image et l'écriture.
+                </p>
+
+                <div class="sources">
+                    <strong>SOURCES</strong><br>
+
+                    <a href="https://www.annemarielouvet.fr/pdf/catalogue-gal-art-2014-soleil-rouge.pdf"
+                       target="_blank" rel="noopener">
+                        gAL’art, <em>Soleil rouge</em>, catalogue,
+                        2014, p. 39
+                    </a><br>
+
+                    <a href="https://www.interencheres.com/art-decoration/atelier-jean-michel-deny-ne-en-1950-partie-iii-692811/lot-89600632.html"
+                       target="_blank" rel="noopener">
+                        Interencheres – Description de
+                        <em>Fragment architectural</em>, lot 20
+                    </a><br>
+
+                    <a href="https://www.gazette-drouot.com/lots/27000114-jean-michel-deny-ne-en-1950--plantules---"
+                       target="_blank" rel="noopener">
+                        Gazette Drouot – Jean-Michel Deny,
+                        <em>Plantules en côtière</em>, 2007
+                    </a>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="navegacion">
+            <span class="indicador">2 / 2</span>
+            <button class="btn-flecha"
+                    onclick="cambiarPagina(1)"
+                    aria-label="Page précédente">←</button>
+        </div>
+
+    </section>
+
+</div>
+
+
+<!-- IMAGE ZOOM -->
+
+<div id="visor-imagen" onclick="fermerImage()">
+    <img id="image-agrandie" src="" alt="Image agrandie">
+</div>
+
+
+<script>
+function changerPage(numero) {
+    document.getElementById("hoja1").classList.add("hoja-oculta");
+    document.getElementById("hoja2").classList.add("hoja-oculta");
+
+    document.getElementById("hoja" + numero)
+        .classList.remove("hoja-oculta");
+}
+
+function cambiarPagina(numero) {
+    changerPage(numero);
+}
+
+function abrirImagen(src) {
+    document.getElementById("image-agrandie").src = src;
+    document.getElementById("visor-imagen").style.display = "flex";
+}
+
+function fermerImage() {
+    document.getElementById("visor-imagen").style.display = "none";
+}
+</script>
+
+</body>
+</html>
+
