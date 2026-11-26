@@ -4,14 +4,12 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>L’Art à Demeure — Galerie des Artistes</title>
-
 <style>
   :root {
     --imagen-principal: url("./fondo-index.jpeg");
     --color-papel: #E6E5E5;
     --texto-dark: #37352f;
     --texto-muted: #66635d;
-    --borde: #d8d6d2;
   }
 
   * {
@@ -94,7 +92,7 @@
     overflow-y: auto;
     overflow-x: hidden;
     scrollbar-width: thin;
-    padding: 0 5px 12px 0;
+    padding: 0 6px 14px 2px;
     -webkit-overflow-scrolling: touch;
     overscroll-behavior: contain;
   }
@@ -144,49 +142,75 @@
   .galeria-artistas {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 15px;
+    gap: 16px;
     width: 100%;
   }
 
-  /* Tarjeta-botón con relieve inicial y efecto hundido al pulsar o pasar el cursor */
   .tarjeta-artista {
+    position: relative;
     display: flex;
     flex-direction: column;
     text-decoration: none;
     color: inherit;
-    background: #ecebea;
-    border: 1px solid rgba(0,0,0,0.09);
-    border-radius: 5px;
-    overflow: hidden;
+    background: linear-gradient(145deg, #f2f1ef, #e2e0dc);
+    border-top: 1.5px solid rgba(255, 255, 255, 0.95);
+    border-left: 1.5px solid rgba(255, 255, 255, 0.85);
+    border-right: 1.5px solid rgba(0, 0, 0, 0.16);
+    border-bottom: 2px solid rgba(0, 0, 0, 0.22);
+    border-radius: 6px;
+    padding: 7px 7px 0 7px;
     box-shadow:
-      0 3px 6px rgba(0,0,0,0.10),
-      inset 0 1px 0 rgba(255,255,255,0.9);
+      4px 5px 10px rgba(0, 0, 0, 0.18),
+      -2px -2px 6px rgba(255, 255, 255, 0.75);
     transition:
-      transform 0.16s ease,
-      box-shadow 0.16s ease,
-      background-color 0.16s ease,
-      border-color 0.16s ease;
+      transform 0.14s cubic-bezier(0.2, 0.8, 0.2, 1),
+      box-shadow 0.14s ease,
+      background 0.14s ease,
+      border-color 0.14s ease;
     user-select: none;
     cursor: pointer;
   }
 
+  .tarjeta-artista::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: 5px;
+    pointer-events: none;
+    box-shadow: inset 0 0 0 rgba(0,0,0,0);
+    transition: box-shadow 0.14s ease, background-color 0.14s ease;
+    z-index: 4;
+  }
+
   .tarjeta-artista:hover,
-  .tarjeta-artista:active,
-  .tarjeta-artista.tocado {
-    background: #dcdad7;
-    border-color: rgba(0,0,0,0.18);
-    transform: translateY(2px) scale(0.985);
+  .tarjeta-artista:active {
+    background: linear-gradient(145deg, #d5d3ce, #e4e2de);
+    border-top: 1.5px solid rgba(0, 0, 0, 0.24);
+    border-left: 1.5px solid rgba(0, 0, 0, 0.20);
+    border-right: 1.5px solid rgba(255, 255, 255, 0.75);
+    border-bottom: 1.5px solid rgba(255, 255, 255, 0.85);
+    transform: translateY(3px) scale(0.982);
     box-shadow:
-      inset 3px 4px 10px rgba(0,0,0,0.24),
-      inset -2px -2px 6px rgba(255,255,255,0.6),
-      0 1px 1px rgba(255,255,255,0.45);
+      0 1px 1px rgba(255, 255, 255, 0.5),
+      inset 4px 5px 10px rgba(0, 0, 0, 0.28),
+      inset -3px -3px 7px rgba(255, 255, 255, 0.65);
+  }
+
+  .tarjeta-artista:hover::after,
+  .tarjeta-artista:active::after {
+    background-color: rgba(0, 0, 0, 0.04);
+    box-shadow:
+      inset 4px 5px 12px rgba(0, 0, 0, 0.30),
+      inset -2px -2px 5px rgba(255, 255, 255, 0.45);
   }
 
   .marco-retrato {
     width: 100%;
-    height: 195px;
+    height: 185px;
     background: #dad7d2;
-    border-bottom: 1px solid rgba(0,0,0,0.08);
+    border-radius: 3px;
+    border: 1px solid rgba(0, 0, 0, 0.14);
+    box-shadow: inset 1px 1px 4px rgba(0, 0, 0, 0.18);
     overflow: hidden;
     position: relative;
   }
@@ -197,22 +221,27 @@
     height: 100%;
     object-fit: cover;
     object-position: center 15%;
-    transition: transform 0.2s ease, filter 0.2s ease;
+    transition: transform 0.16s ease, filter 0.16s ease;
   }
 
   .tarjeta-artista:hover .marco-retrato img,
-  .tarjeta-artista:active .marco-retrato img,
-  .tarjeta-artista.tocado .marco-retrato img {
-    transform: scale(0.97);
-    filter: brightness(0.96);
+  .tarjeta-artista:active .marco-retrato img {
+    transform: scale(0.975);
+    filter: brightness(0.93) contrast(1.03);
   }
 
   .info-artista {
-    padding: 11px 8px;
+    padding: 11px 6px 12px;
     text-align: center;
     display: flex;
     flex-direction: column;
     gap: 3px;
+    transition: transform 0.14s ease;
+  }
+
+  .tarjeta-artista:hover .info-artista,
+  .tarjeta-artista:active .info-artista {
+    transform: translateY(1px);
   }
 
   .info-artista strong {
@@ -269,15 +298,19 @@
     }
 
     .galeria-artistas {
-      gap: 12px;
+      gap: 13px;
+    }
+
+    .tarjeta-artista {
+      padding: 5px 5px 0 5px;
     }
 
     .marco-retrato {
-      height: 155px;
+      height: 148px;
     }
 
     .info-artista {
-      padding: 9px 6px;
+      padding: 9px 4px 10px;
     }
 
     .info-artista strong {
@@ -300,7 +333,7 @@
   }
 </style>
 </head>
-<body>
+<body ontouchstart="">
 
 <div class="lienzo-a4">
   <section class="hoja">
@@ -317,10 +350,9 @@
 
       <div class="galeria-artistas">
 
-        <!-- 1. René Charles Bellanger -->
-        <a href="./artistes/bellanger-rene-charles/index.html" class="tarjeta-artista">
+        <a href="./artistes/rene-charles-bellanger/index.html" class="tarjeta-artista">
           <div class="marco-retrato">
-            <img src="./assets/retratos/bellanger-rene-charles.png" alt="René Charles Bellanger">
+            <img src="./assets/retratos/bellanger-rene-charles.jpg" alt="René Charles Bellanger">
           </div>
           <div class="info-artista">
             <strong>René Charles Bellanger</strong>
@@ -328,10 +360,9 @@
           </div>
         </a>
 
-        <!-- 2. Jean-Louis Appian -->
         <a href="./artistes/jean-louis-appian/index.html" class="tarjeta-artista">
           <div class="marco-retrato">
-            <img src="./assets/retratos/jean-louis-appian.png" alt="Jean-Louis Appian">
+            <img src="./assets/retratos/jean-louis-appian.jpg" alt="Jean-Louis Appian">
           </div>
           <div class="info-artista">
             <strong>Jean-Louis Appian</strong>
@@ -339,10 +370,9 @@
           </div>
         </a>
 
-        <!-- 3. Jean-Michel Deny -->
         <a href="./artistes/jean-michel-deny/index.html" class="tarjeta-artista">
           <div class="marco-retrato">
-            <img src="./assets/retratos/jean-michel-deny.png" alt="Jean-Michel Deny">
+            <img src="./assets/retratos/jean-michel-deny.jpg" alt="Jean-Michel Deny">
           </div>
           <div class="info-artista">
             <strong>Jean-Michel Deny</strong>
@@ -350,10 +380,9 @@
           </div>
         </a>
 
-        <!-- 4. Louis Latapie -->
         <a href="./artistes/louis-latapie/index.html" class="tarjeta-artista">
           <div class="marco-retrato">
-            <img src="./assets/retratos/louis-latapie.png" alt="Louis Latapie">
+            <img src="./assets/retratos/louis-latapie.jpg" alt="Louis Latapie">
           </div>
           <div class="info-artista">
             <strong>Louis Latapie</strong>
@@ -361,10 +390,9 @@
           </div>
         </a>
 
-        <!-- 5. Roger Crusat -->
         <a href="./artistes/roger-crusat/index.html" class="tarjeta-artista">
           <div class="marco-retrato">
-            <img src="./assets/retratos/roger-crusat.png" alt="Roger Crusat">
+            <img src="./assets/retratos/roger-crusat.jpg" alt="Roger Crusat">
           </div>
           <div class="info-artista">
             <strong>Roger Crusat</strong>
@@ -382,22 +410,6 @@
   </section>
 </div>
 
-<script>
-  document.querySelectorAll('.tarjeta-artista').forEach(function(tarjeta) {
-    tarjeta.addEventListener('touchstart', function() {
-      this.classList.add('tocado');
-    }, { passive: true });
-
-    ['touchend', 'touchcancel', 'touchmove'].forEach(function(evento) {
-      tarjeta.addEventListener(evento, function() {
-        var el = this;
-        setTimeout(function() {
-          el.classList.remove('tocado');
-        }, 160);
-      }, { passive: true });
-    });
-  });
-</script>
-
 </body>
 </html>
+
