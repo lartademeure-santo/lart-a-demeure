@@ -3,30 +3,31 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Roger Crusat — Catalogue Raisonné</title>
+<title>L’Art à Demeure — Galerie des Artistes</title>
 
 <style>
-:root {
-    --imagen-principal: url("fondo-index.jpeg");
+  :root {
+    --imagen-principal: url("./fondo-index.jpeg");
     --color-papel: #E6E5E5;
     --texto-dark: #37352f;
-    --texto-muted: #787774;
-    --borde: #edeef0;
-}
+    --texto-muted: #66635d;
+    --borde: #d8d6d2;
+  }
 
-* {
+  * {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
-}
+    -webkit-tap-highlight-color: transparent;
+  }
 
-html, body {
+  html, body {
     width: 100%;
     min-height: 100%;
     overflow-x: hidden;
-}
+  }
 
-body {
+  body {
     font-family: "Avenir Next", Avenir, "Segoe UI", Helvetica, Arial, sans-serif;
     background: #e5e5e5;
     color: var(--texto-dark);
@@ -36,9 +37,9 @@ body {
     min-height: 100vh;
     padding: 20px;
     -webkit-font-smoothing: antialiased;
-}
+  }
 
-.lienzo-a4 {
+  .lienzo-a4 {
     width: 100%;
     max-width: 750px;
     aspect-ratio: 1 / 1.4142;
@@ -48,655 +49,322 @@ body {
     background-size: cover;
     background-position: center;
     box-shadow: 0 30px 60px rgba(0,0,0,0.35);
-}
+  }
 
-.hoja {
+  .hoja {
     position: absolute;
     z-index: 2;
     width: 75%;
     height: 85%;
     top: 7.5%;
     left: 12.5%;
-    background: linear-gradient(
-        225deg,
-        transparent 42px,
-        var(--color-papel) 42px
-    );
-    padding: 48px 30px 78px;
+    background: linear-gradient(225deg, transparent 42px, var(--color-papel) 42px);
+    padding: 48px 30px 44px;
     display: flex;
     flex-direction: column;
     box-shadow:
-        -1px 1px 0 rgba(255,255,255,0.6) inset,
-        20px 30px 45px rgba(0,0,0,0.40),
-        5px 10px 20px rgba(0,0,0,0.20);
+      -1px 1px 0 rgba(255,255,255,0.6) inset,
+      20px 30px 45px rgba(0,0,0,0.40),
+      5px 10px 20px rgba(0,0,0,0.20);
     border-right: 1.5px solid rgba(0,0,0,0.12);
     border-bottom: 2px solid rgba(0,0,0,0.15);
     min-width: 0;
-}
+  }
 
-.hoja::before {
+  .hoja::before {
     content: "";
     position: absolute;
     top: 0;
     right: 0;
-    left: auto;
     width: 42px;
     height: 42px;
-    background: linear-gradient(
-        225deg,
-        transparent 50%,
-        #ffffff 50%
-    );
+    background: linear-gradient(225deg, transparent 50%, #fff 50%);
     box-shadow: -5px 5px 8px rgba(0,0,0,0.18);
     pointer-events: none;
     z-index: 5;
-}
+  }
 
-#hoja1 {
-    display: flex;
-}
-
-#hoja2 {
-    display: none;
-}
-
-.contenido-scroll {
+  .contenido-scroll {
     position: relative;
     z-index: 1;
-    flex: 1;
+    flex: 1 1 auto;
     min-height: 0;
     min-width: 0;
     width: 100%;
     overflow-y: auto;
     overflow-x: hidden;
     scrollbar-width: thin;
-    padding: 0 5px 8px 0;
-}
+    padding: 0 5px 12px 0;
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior: contain;
+  }
 
-/* BANNER DE IDENTIDAD */
-
-.encabezado-marca {
+  .encabezado-marca {
     position: relative;
     z-index: 2;
     display: block;
     width: 100%;
-    margin: 0 auto 30px;
-    padding: 0;
-    border: 0;
+    margin: 0 auto 22px;
     text-align: center;
-}
+  }
 
-.logo-proyecto {
+  .logo-proyecto {
     display: block;
     width: 100%;
     max-width: 100%;
     height: auto;
     object-fit: contain;
     margin: 0 auto;
-}
+  }
 
-.cuerpo h2 {
-    font-family: "Avenir Next", Avenir, "Segoe UI", Helvetica, Arial, sans-serif;
-    font-size: 0.72rem;
+  .cabecera-galeria {
+    text-align: center;
+    margin-bottom: 22px;
+    border-bottom: 1px solid rgba(0,0,0,0.13);
+    padding-bottom: 14px;
+  }
+
+  .cabecera-galeria h1 {
+    font-family: "Avenir Next", Avenir, "Segoe UI", sans-serif;
+    font-size: 0.98rem;
     font-weight: 600;
     text-transform: uppercase;
-    letter-spacing: 1.25px;
-    margin-top: 15px;
-    margin-bottom: 7px;
+    letter-spacing: 2px;
     color: #282722;
-    border-bottom: 1px solid rgba(0,0,0,0.13);
-    padding-bottom: 5px;
-}
+    margin-bottom: 5px;
+  }
 
-.cuerpo h2:first-child {
-    margin-top: 0;
-}
+  .cabecera-galeria p {
+    font-family: Baskerville, "Palatino Linotype", Georgia, serif;
+    font-style: italic;
+    font-size: 0.88rem;
+    color: var(--texto-muted);
+  }
 
-.cuerpo p,
-.cuerpo li {
-    font-size: 0.68rem;
-    line-height: 1.48;
-    font-weight: 400;
-    color: #34332f;
-    text-align: justify;
-    margin-bottom: 8px;
-}
-
-.cuerpo ul {
-    margin-left: 18px;
-    margin-bottom: 13px;
-}
-
-.presentacion-principal {
-    width: 100%;
-    min-width: 0;
-    text-align: center;
-    margin-bottom: 12px;
-    overflow: hidden;
-}
-
-.imagen-principal-obra {
-    display: block;
-    width: 100%;
-    max-width: 100%;
-    height: 220px;
-    margin: 0 auto;
-    object-fit: contain;
-    object-position: center;
-    background: transparent;
-}
-
-.titulo-obra-principal {
-    font-family: "Baskerville", "Palatino Linotype", "Book Antiqua", Georgia, serif;
-    font-size: 0.98rem;
-    font-weight: 400;
-    letter-spacing: 0.25px;
-    margin-top: 8px;
-    color: #26251f;
-}
-
-.detalle-obra-principal {
-    font-family: "Avenir Next", Avenir, "Segoe UI", Helvetica, Arial, sans-serif;
-    font-size: 0.62rem;
-    color: #77736b;
-    margin-top: 5px;
-    letter-spacing: 1.6px;
-}
-
-.firma {
-    font-family: "Baskerville", "Palatino Linotype", "Book Antiqua", Georgia, serif;
-    font-size: 1.8rem;
-    font-weight: 400;
-    line-height: 1;
-    letter-spacing: -0.4px;
-    color: #39362f;
-    margin-top: 24px;
-    margin-bottom: 12px;
-}
-
-.navegacion {
-    position: absolute;
-    bottom: 13px;
-    right: 16px;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    z-index: 10;
-}
-
-.btn-flecha {
-    width: 48px;
-    height: 48px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: rgba(255,255,255,0.92);
-    border: 1px solid rgba(0,0,0,0.18);
-    border-radius: 50%;
-    font-size: 1.8rem;
-    line-height: 1;
-    color: #37352f;
-    cursor: pointer;
-    box-shadow: 0 3px 10px rgba(0,0,0,0.15);
-    transition: transform 0.2s ease, background 0.2s ease;
-}
-
-.btn-flecha:hover {
-    background: #fff;
-    transform: scale(1.06);
-}
-
-.indicador {
-    font-size: 0.64rem;
-    color: #666;
-    letter-spacing: 1px;
-    font-weight: 600;
-}
-
-.galeria {
+  /* Cuadrícula de artistas */
+  .galeria-artistas {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 12px;
-    margin-top: 13px;
+    gap: 16px;
     width: 100%;
-}
+  }
 
-.tarjeta-obra {
+  /* Tarjeta con relieve inicial sutil y efecto hundido al interactuar */
+  .tarjeta-artista {
     display: flex;
     flex-direction: column;
-    min-width: 0;
-    overflow: hidden;
-    background: rgba(255,255,255,0.72);
-    border: 1px solid var(--borde);
-    border-radius: 4px;
     text-decoration: none;
     color: inherit;
-    cursor: pointer;
-}
+    background: #ecebea;
+    border: 1px solid rgba(0,0,0,0.08);
+    border-radius: 4px;
+    overflow: hidden;
+    box-shadow:
+      0 2px 5px rgba(0,0,0,0.08),
+      inset 0 1px 0 rgba(255,255,255,0.85);
+    transition:
+      transform 0.18s ease,
+      box-shadow 0.18s ease,
+      background-color 0.18s ease,
+      border-color 0.18s ease;
+    user-select: none;
+  }
 
-.tarjeta-obra img {
+  /* Efecto de relieve hundido (Cursor en PC y toque en móvil) */
+  .tarjeta-artista:hover,
+  .tarjeta-artista:active,
+  .tarjeta-artista.tocado {
+    background: #dcdad7;
+    border-color: rgba(0,0,0,0.16);
+    transform: translateY(2px) scale(0.988);
+    box-shadow:
+      inset 3px 4px 9px rgba(0,0,0,0.22),
+      inset -2px -2px 6px rgba(255,255,255,0.55),
+      0 1px 1px rgba(255,255,255,0.4);
+  }
+
+  .marco-retrato {
+    width: 100%;
+    height: 170px;
+    background: #f4f3f1;
+    border-bottom: 1px solid rgba(0,0,0,0.07);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 12px;
+    overflow: hidden;
+    transition: background-color 0.18s ease;
+  }
+
+  .tarjeta-artista:hover .marco-retrato,
+  .tarjeta-artista:active .marco-retrato,
+  .tarjeta-artista.tocado .marco-retrato {
+    background: #e6e4e1;
+  }
+
+  .marco-retrato svg,
+  .marco-retrato img {
     display: block;
     width: 100%;
-    height: 160px;
+    height: 100%;
+    max-width: 145px;
+    max-height: 145px;
     object-fit: contain;
-    background: transparent;
-}
+    transition: transform 0.2s ease;
+  }
 
-.info-obra {
-    padding: 8px;
+  .tarjeta-artista:hover .marco-retrato svg,
+  .tarjeta-artista:active .marco-retrato svg,
+  .tarjeta-artista.tocado .marco-retrato svg {
+    transform: scale(0.97);
+  }
+
+  .info-artista {
+    padding: 12px 10px;
+    text-align: center;
     display: flex;
     flex-direction: column;
-    justify-content: center;
     gap: 4px;
-}
+  }
 
-.info-obra strong {
-    font-size: 0.68rem;
-    line-height: 1.35;
-    font-weight: 600;
-}
-
-.info-obra span {
-    font-size: 0.60rem;
-    color: var(--texto-muted);
-    line-height: 1.4;
-}
-
-.sources {
-    font-size: 0.64rem !important;
-    line-height: 1.5 !important;
-    margin-top: 16px;
-}
-
-.sources a {
-    color: #555;
-    text-decoration: underline;
-}
-
-/* VISOR DE IMÁGENES AMPLIADAS */
-
-#visor-imagen {
-    display: none;
-    position: fixed;
-    inset: 0;
-    z-index: 9999;
-    background: rgba(0,0,0,0.92);
-    align-items: center;
-    justify-content: center;
-    padding: 60px 25px 25px;
-}
-
-#visor-imagen.activo {
-    display: flex;
-}
-
-#imagen-ampliada {
-    display: block;
-    max-width: 95%;
-    max-height: 90%;
-    width: auto;
-    height: auto;
-    object-fit: contain;
-    box-shadow: 0 10px 40px rgba(0,0,0,0.5);
-}
-
-/* BOTÓN DE CIERRE */
-
-.btn-cerrar {
-    position: fixed;
-    top: 20px;
-    right: 24px;
-    width: 46px;
-    height: 46px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: #ffffff;
-    color: #222222;
-    border: 2px solid #ffffff;
-    border-radius: 50%;
-    font-family: Arial, sans-serif;
-    font-size: 32px;
+  .info-artista strong {
+    font-family: Baskerville, "Palatino Linotype", Georgia, serif;
+    font-size: 1.02rem;
     font-weight: 400;
-    line-height: 1;
-    cursor: pointer;
-    z-index: 10001;
-    box-shadow: 0 3px 12px rgba(0,0,0,0.4);
-}
+    color: #26251f;
+    letter-spacing: 0.3px;
+  }
 
-@media (max-width: 600px) {
+  .info-artista span {
+    font-size: 0.72rem;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--texto-muted);
+  }
+
+  .pie-catalogo {
+    margin-top: 24px;
+    text-align: center;
+    font-size: 0.75rem;
+    color: var(--texto-muted);
+    letter-spacing: 0.6px;
+  }
+
+  @media (max-width: 600px) {
     body {
-        display: block;
-        padding: 8px;
-        min-height: 100vh;
+      display: block;
+      padding: 8px;
+      min-height: 100vh;
     }
 
     .lienzo-a4 {
-        width: 100%;
-        min-height: calc(100vh - 16px);
-        height: calc(100vh - 16px);
-        aspect-ratio: auto;
+      width: 100%;
+      min-height: calc(100vh - 16px);
+      height: calc(100vh - 16px);
+      aspect-ratio: auto;
     }
 
     .hoja {
-        width: 88%;
-        left: 6%;
-        height: 90%;
-        top: 5%;
-        padding: 42px 18px 72px;
+      width: 88%;
+      left: 6%;
+      height: 90%;
+      top: 5%;
+      padding: 40px 18px 32px;
     }
 
     .encabezado-marca {
-        margin-bottom: 10px;
+      margin-bottom: 14px;
     }
 
-    .imagen-principal-obra {
-        width: 100%;
-        height: 190px;
+    .cabecera-galeria h1 {
+      font-size: 0.9rem;
     }
 
-    .titulo-obra-principal {
-        font-size: 0.9rem;
+    .galeria-artistas {
+      gap: 12px;
     }
 
-    .cuerpo h2 {
-        font-size: 0.68rem;
-        margin-top: 14px;
-        letter-spacing: 1px;
+    .marco-retrato {
+      height: 138px;
+      padding: 8px;
     }
 
-    .cuerpo p,
-    .cuerpo li {
-        font-size: 0.65rem;
-        line-height: 1.45;
+    .info-artista {
+      padding: 9px 6px;
     }
 
-    .firma {
-        font-size: 1.55rem;
+    .info-artista strong {
+      font-size: 0.92rem;
     }
 
-    .tarjeta-obra img {
-        height: 125px;
+    .info-artista span {
+      font-size: 0.65rem;
     }
+  }
 
-    .info-obra {
-        padding: 6px;
+  @media (max-width: 360px) {
+    .hoja {
+      padding-left: 14px;
+      padding-right: 14px;
     }
-
-    .info-obra strong {
-        font-size: 0.62rem;
+    .galeria-artistas {
+      grid-template-columns: 1fr;
     }
-
-    .info-obra span {
-        font-size: 0.55rem;
-    }
-
-    .navegacion {
-        right: 10px;
-        bottom: 8px;
-        gap: 8px;
-    }
-
-    .btn-flecha {
-        width: 44px;
-        height: 44px;
-        font-size: 1.65rem;
-    }
-}
+  }
 </style>
 </head>
-
 <body>
+
 <div class="lienzo-a4">
+  <section class="hoja">
+    <div class="contenido-scroll">
 
-    <!-- PREMIÈRE PAGE -->
-    <section class="hoja" id="hoja1">
-        <div class="contenido-scroll">
+      <div class="encabezado-marca">
+        <img src="./assets/logo.png" alt="L’Art à Demeure" class="logo-proyecto">
+      </div>
 
-            <div class="encabezado-marca">
-                <img src="./logo.png"
-                     alt="L'Art à Demeure"
-                     class="logo-proyecto">
-            </div>
+      <div class="cabecera-galeria">
+        <h1>Galerie des Artistes</h1>
+        <p>Collection privée — Sélection d’œuvres et biographies</p>
+      </div>
 
-            <div class="presentacion-principal">
-                <img src="./cuadro.jpeg"
-                     alt="Femme aux yeux fermés — Roger Crusat"
-                     class="imagen-principal-obra">
+      <div class="galeria-artistas">
 
-                <div class="titulo-obra-principal">
-                    Femme aux yeux fermés
-                </div>
-                <div class="detalle-obra-principal">
-                    ROGER CRUSAT · 1955
-                </div>
-            </div>
+        <!-- Artista 1: René Charles Bellanger (Caricatura: pintor clásico con boina y pincel) -->
+        <a href="./artistes/rene-charles-bellanger/index.html" class="tarjeta-artista">
+          <div class="marco-retrato">
+            <svg viewBox="0 0 160 160" xmlns="http://w3.org" aria-label="Illustration caricaturale de René Charles Bellanger">
+              <circle cx="80" cy="80" r="68" fill="#eae8e4" stroke="#37352f" stroke-width="1.2" stroke-dasharray="3 2"/>
+              <!-- Solapa y abrigo -->
+              <path d="M40 142 C44 114, 116 114, 120 142" fill="#d3d0ca" stroke="#282722" stroke-width="2.2" stroke-linecap="round"/>
+              <path d="M66 116 L80 132 L94 116" fill="none" stroke="#282722" stroke-width="2"/>
+              <!-- Cabeza caricaturesca -->
+              <path d="M56 64 C54 92, 63 112, 80 112 C97 112, 106 92, 104 64 Z" fill="#f7f5f0" stroke="#282722" stroke-width="2.2"/>
+              <!-- Boina inclinada -->
+              <path d="M45 58 C42 36, 108 30, 118 52 C121 59, 98 63, 74 62 C55 61, 46 62, 45 58 Z" fill="#37352f"/>
+              <path d="M84 37 L88 30" stroke="#37352f" stroke-width="2.5" stroke-linecap="round"/>
+              <!-- Cejas expresivas y gafas redondas -->
+              <path d="M62 68 Q69 64 75 68" fill="none" stroke="#282722" stroke-width="2.2" stroke-linecap="round"/>
+              <path d="M85 68 Q91 64 98 68" fill="none" stroke="#282722" stroke-width="2.2" stroke-linecap="round"/>
+              <circle cx="69" cy="76" r="7" fill="none" stroke="#282722" stroke-width="1.8"/>
+              <circle cx="91" cy="76" r="7" fill="none" stroke="#282722" stroke-width="1.8"/>
+              <line x1="76" y1="76" x2="84" y2="76" stroke="#282722" stroke-width="1.8"/>
+              <circle cx="70" cy="76" r="1.8" fill="#282722"/>
+              <circle cx="90" cy="76" r="1.8" fill="#282722"/>
+              <!-- Nariz prominente y bigote -->
+              <path d="M80 75 L76 89 L83 90" fill="none" stroke="#282722" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M66 97 Q80 91 94 97 Q80 100 66 97 Z" fill="#37352f"/>
+              <!-- Pincel en mano -->
+              <line x1="112" y1="138" x2="128" y2="88" stroke="#282722" stroke-width="2.5" stroke-linecap="round"/>
+              <path d="M126 89 C127 79, 134 76, 133 85 C132 90, 127 91, 126 89 Z" fill="#37352f"/>
+            </svg>
+          </div>
+          <div class="info-artista">
+            <strong>René Charles Bellanger</strong>
+            <span>1895–1964</span>
+          </div>
+        </a>
 
-            <div class="cuerpo">
-                <h2>Présentation de l'œuvre</h2>
-                <p>
-                    <strong>Femme aux yeux fermés</strong> est une œuvre
-                    réalisée par Roger Crusat en 1955, au pastel sur papier.
-                    Elle témoigne d’un moment de son parcours artistique.
-                    Sa présentation iconographique sera enrichie à partir
-                    de l’observation de l’œuvre originale.
-                </p>
-
-                <h2>L'artiste</h2>
-                <p>
-                    Roger Crusat (1917–1994) est un peintre, lithographe
-                    et poète français d’identité catalane. Né à Perpignan,
-                    il a développé une grande partie de son parcours
-                    artistique à Paris, notamment dans le quartier de
-                    Montmartre, où il a fréquenté la cité d’artistes des
-                    Fusains. Surnommé « le peintre catalan de Montmartre »,
-                    il a construit une œuvre personnelle, nourrie par son
-                    attachement à la culture catalane et par la vie
-                    artistique parisienne.
-                </p>
-
-                <h2>Données techniques</h2>
-                <ul>
-                    <li>Artiste : Roger Crusat (1917–1994)</li>
-                    <li>Titre : Femme aux yeux fermés</li>
-                    <li>Date : 1955</li>
-                    <li>Technique : Pastel sur papier</li>
-                </ul>
-
-                <div class="firma">Roger Crusat</div>
-            </div>
-        </div>
-
-        <div class="navegacion">
-            <span class="indicador">01 / 02</span>
-            <button class="btn-flecha"
-                    onclick="cambiarPagina(2)"
-                    aria-label="Page suivante">→</button>
-        </div>
-    </section>
-
-    <!-- DEUXIÈME PAGE -->
-    <section class="hoja" id="hoja2">
-        <div class="contenido-scroll">
-            <div class="cuerpo">
-
-                <h2>Formation et parcours artistique</h2>
-                <p>
-                    Roger Crusat se forme d’abord auprès d’André
-                    Fons-Godail à l’École des beaux-arts de Perpignan.
-                    Après sa mobilisation pendant la Seconde Guerre
-                    mondiale, il poursuit ses études à Paris auprès de
-                    René Jaudon, à l’École nationale supérieure des
-                    beaux-arts. Dans sa jeunesse, il participe également
-                    à une compagnie de ballet, pour laquelle il réalise
-                    des costumes et des décors, tout en pratiquant
-                    la danse.
-                </p>
-
-                <p>
-                    Installé à Montmartre, notamment dans la cité
-                    d’artistes des Fusains, il prend part à la vie
-                    artistique parisienne. Il devient sociétaire du
-                    Salon des Indépendants, du Salon d’Automne et de
-                    la Société nationale des beaux-arts. Son parcours
-                    comprend des expositions à Paris et en région,
-                    ainsi que des présentations à l’étranger, notamment
-                    à Genève et Bruxelles, et dans des expositions
-                    collectives en Belgique, au Japon et au Mexique.
-                </p>
-
-                <h2>Expositions et distinctions</h2>
-                <p>
-                    Roger Crusat participe à plusieurs manifestations
-                    artistiques importantes au cours de sa carrière.
-                    Parmi les expositions et présentations documentées
-                    figurent notamment :
-                </p>
-
-                <ul>
-                    <li>Galerie Roger, Lyon, 1946.</li>
-                    <li>Salon d’hiver, au Musée d’art moderne de la Ville
-                        de Paris, en 1946, 1949 et 1950.</li>
-                    <li>Galerie Durand-Ruel, Paris, 1955.</li>
-                    <li>Galerie E.-J. Rivière, Paris, 1958.</li>
-                </ul>
-
-                <p>
-                    En 1956, il reçoit le Prix du Salon populiste pour
-                    son œuvre <em>Descente de gouttière</em>. En 1957,
-                    certaines sources mentionnent également le Grand
-                    Prix des Amis de Brantôme, dont la date reste
-                    à confirmer.
-                </p>
-
-                <p>
-                    Son parcours témoigne de sa participation active
-                    à la scène artistique française du XXe siècle.
-                </p>
-
-                <h2>Galerie — Autres œuvres de Roger Crusat</h2>
-                <div class="galeria">
-
-                    <a href="./galeria%201.jpg"
-                       class="tarjeta-obra"
-                       onclick="abrirImagen(event, this.href)">
-                        <img src="./galeria%201.jpg"
-                             alt="Grand Bouquet de fleurs">
-                        <div class="info-obra">
-                            <strong>Grand Bouquet de fleurs</strong>
-                            <span>Vers 1950 · Huile sur toile</span>
-                            <span>Source : Proantic</span>
-                        </div>
-                    </a>
-
-                    <a href="./galeria%202.jpg"
-                       class="tarjeta-obra"
-                       onclick="abrirImagen(event, this.href)">
-                        <img src="./galeria%202.jpg"
-                             alt="Poupée 1925">
-                        <div class="info-obra">
-                            <strong>Poupée 1925</strong>
-                            <span>Huile sur toile</span>
-                            <span>130,81 × 97,79 cm</span>
-                        </div>
-                    </a>
-
-                    <a href="./galeria%203.jpg"
-                       class="tarjeta-obra"
-                       onclick="abrirImagen(event, this.href)">
-                        <img src="./galeria%203.jpg"
-                             alt="Femme assise">
-                        <div class="info-obra">
-                            <strong>Femme assise</strong>
-                            <span>Huile sur toile · Œuvre signée</span>
-                            <span>Roger Crusat (1917–1994)</span>
-                        </div>
-                    </a>
-
-                </div>
-
-                <p class="sources">
-                    <strong>Sources documentaires :</strong><br><br>
-                    Proantic — annonce commerciale pour
-                    <em>Grand Bouquet de fleurs</em>.<br><br>
-
-                    <a href="https://www.1stdibs.com/es/arte/pinturas/pinturas-figurativas/roger-crusat-gran-óleo-expresionista-francés-niña-poupèe-la-muñeca-escuela-de-parís/id-a_15114322/"
-                       target="_blank" rel="noopener">
-                        1stDibs — Poupée 1925
-                    </a><br><br>
-
-                    <a href="https://fr.artprice.com/place-de-marche/2208856/peinture/femme-assise"
-                       target="_blank" rel="noopener">
-                        Artprice — Femme assise
-                    </a>
-                </p>
-
-                <div class="firma">Roger Crusat</div>
-            </div>
-        </div>
-
-        <div class="navegacion">
-            <span class="indicador">02 / 02</span>
-            <button class="btn-flecha"
-                    onclick="cambiarPagina(1)"
-                    aria-label="Page précédente">←</button>
-        </div>
-    </section>
-</div>
-
-<!-- VISOR DE IMÁGENES -->
-<div id="visor-imagen" onclick="cerrarImagen()">
-
-    <button type="button"
-            class="btn-cerrar"
-            onclick="event.stopPropagation(); cerrarImagen();"
-            aria-label="Fermer l'image">×</button>
-
-    <img id="imagen-ampliada"
-         src=""
-         alt="Œuvre agrandie"
-         onclick="event.stopPropagation()">
-
-</div>
-
-<script>
-function cambiarPagina(numero) {
-    const hoja1 = document.getElementById("hoja1");
-    const hoja2 = document.getElementById("hoja2");
-
-    if (numero === 1) {
-        hoja1.style.display = "flex";
-        hoja2.style.display = "none";
-    } else {
-        hoja1.style.display = "none";
-        hoja2.style.display = "flex";
-    }
-}
-
-function abrirImagen(event, ruta) {
-    event.preventDefault();
-
-    const visor = document.getElementById("visor-imagen");
-    const imagen = document.getElementById("imagen-ampliada");
-
-    imagen.src = ruta;
-    visor.classList.add("activo");
-}
-
-function cerrarImagen() {
-    const visor = document.getElementById("visor-imagen");
-    const imagen = document.getElementById("imagen-ampliada");
-
-    visor.classList.remove("activo");
-    imagen.src = "";
-}
-
-document.addEventListener("keydown", function(event) {
-    if (event.key === "Escape") {
-        cerrarImagen();
-    }
-});
-</script>
-
-</body>
-</html>
+        <!-- Artista 2: Roger Crusat (Caricatura: artista mediterráneo con bigote fino y paleta) -->
+        <a href="./artistes/roger-crusat/index.html" class="tarjeta-artista">
+          <div class="marco-retrato">
