@@ -141,7 +141,6 @@
     color: var(--texto-muted);
   }
 
-  /* Cuadrícula de artistas */
   .galeria-artistas {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -149,74 +148,71 @@
     width: 100%;
   }
 
-  /* Tarjeta con relieve inicial sutil y efecto hundido al interactuar */
   .tarjeta-artista {
     display: flex;
     flex-direction: column;
     text-decoration: none;
     color: inherit;
     background: #ecebea;
-    border: 1px solid rgba(0,0,0,0.08);
-    border-radius: 4px;
+    border: 1px solid rgba(0,0,0,0.09);
+    border-radius: 5px;
     overflow: hidden;
     box-shadow:
-      0 2px 5px rgba(0,0,0,0.08),
-      inset 0 1px 0 rgba(255,255,255,0.85);
+      0 3px 6px rgba(0,0,0,0.10),
+      inset 0 1px 0 rgba(255,255,255,0.9);
     transition:
-      transform 0.18s ease,
-      box-shadow 0.18s ease,
-      background-color 0.18s ease,
-      border-color 0.18s ease;
+      transform 0.16s ease,
+      box-shadow 0.16s ease,
+      background-color 0.16s ease,
+      border-color 0.16s ease;
     user-select: none;
+    cursor: pointer;
   }
 
-  /* Efecto de relieve hundido (Cursor en PC y toque en móvil) */
   .tarjeta-artista:hover,
   .tarjeta-artista:active,
   .tarjeta-artista.tocado {
     background: #dcdad7;
-    border-color: rgba(0,0,0,0.16);
-    transform: translateY(2px) scale(0.988);
+    border-color: rgba(0,0,0,0.18);
+    transform: translateY(2px) scale(0.985);
     box-shadow:
-      inset 3px 4px 9px rgba(0,0,0,0.22),
-      inset -2px -2px 6px rgba(255,255,255,0.55),
-      0 1px 1px rgba(255,255,255,0.4);
+      inset 3px 4px 10px rgba(0,0,0,0.24),
+      inset -2px -2px 6px rgba(255,255,255,0.6),
+      0 1px 1px rgba(255,255,255,0.45);
   }
 
   .marco-retrato {
     width: 100%;
-    height: 170px;
-    background: #f4f3f1;
+    height: 185px;
+    background: #ffffff;
     border-bottom: 1px solid rgba(0,0,0,0.07);
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 12px;
+    padding: 8px;
     overflow: hidden;
-    transition: background-color 0.18s ease;
+    transition: background-color 0.16s ease;
   }
 
   .tarjeta-artista:hover .marco-retrato,
   .tarjeta-artista:active .marco-retrato,
   .tarjeta-artista.tocado .marco-retrato {
-    background: #e6e4e1;
+    background: #f3f2f0;
   }
 
-  .marco-retrato svg,
   .marco-retrato img {
     display: block;
     width: 100%;
     height: 100%;
-    max-width: 145px;
-    max-height: 145px;
     object-fit: contain;
-    transition: transform 0.2s ease;
+    object-position: center bottom;
+    transition: transform 0.18s ease;
   }
 
-  .tarjeta-artista:hover .marco-retrato svg,
-  .tarjeta-artista:active .marco-retrato svg,
-  .tarjeta-artista.tocado .marco-retrato svg {
-    transform: scale(0.97);
+  .tarjeta-artista:hover .marco-retrato img,
+  .tarjeta-artista:active .marco-retrato img,
+  .tarjeta-artista.tocado .marco-retrato img {
+    transform: scale(0.96);
   }
 
   .info-artista {
@@ -285,8 +281,8 @@
     }
 
     .marco-retrato {
-      height: 138px;
-      padding: 8px;
+      height: 150px;
+      padding: 6px;
     }
 
     .info-artista {
@@ -330,34 +326,10 @@
 
       <div class="galeria-artistas">
 
-        <!-- Artista 1: René Charles Bellanger (Caricatura: pintor clásico con boina y pincel) -->
-        <a href="./artistes/rene-charles-bellanger/index.html" class="tarjeta-artista">
+        <!-- 1. René Charles Bellanger -->
+        <a href="./artistes/bellanger-rene-charles/index.html" class="tarjeta-artista">
           <div class="marco-retrato">
-            <svg viewBox="0 0 160 160" xmlns="http://w3.org" aria-label="Illustration caricaturale de René Charles Bellanger">
-              <circle cx="80" cy="80" r="68" fill="#eae8e4" stroke="#37352f" stroke-width="1.2" stroke-dasharray="3 2"/>
-              <!-- Solapa y abrigo -->
-              <path d="M40 142 C44 114, 116 114, 120 142" fill="#d3d0ca" stroke="#282722" stroke-width="2.2" stroke-linecap="round"/>
-              <path d="M66 116 L80 132 L94 116" fill="none" stroke="#282722" stroke-width="2"/>
-              <!-- Cabeza caricaturesca -->
-              <path d="M56 64 C54 92, 63 112, 80 112 C97 112, 106 92, 104 64 Z" fill="#f7f5f0" stroke="#282722" stroke-width="2.2"/>
-              <!-- Boina inclinada -->
-              <path d="M45 58 C42 36, 108 30, 118 52 C121 59, 98 63, 74 62 C55 61, 46 62, 45 58 Z" fill="#37352f"/>
-              <path d="M84 37 L88 30" stroke="#37352f" stroke-width="2.5" stroke-linecap="round"/>
-              <!-- Cejas expresivas y gafas redondas -->
-              <path d="M62 68 Q69 64 75 68" fill="none" stroke="#282722" stroke-width="2.2" stroke-linecap="round"/>
-              <path d="M85 68 Q91 64 98 68" fill="none" stroke="#282722" stroke-width="2.2" stroke-linecap="round"/>
-              <circle cx="69" cy="76" r="7" fill="none" stroke="#282722" stroke-width="1.8"/>
-              <circle cx="91" cy="76" r="7" fill="none" stroke="#282722" stroke-width="1.8"/>
-              <line x1="76" y1="76" x2="84" y2="76" stroke="#282722" stroke-width="1.8"/>
-              <circle cx="70" cy="76" r="1.8" fill="#282722"/>
-              <circle cx="90" cy="76" r="1.8" fill="#282722"/>
-              <!-- Nariz prominente y bigote -->
-              <path d="M80 75 L76 89 L83 90" fill="none" stroke="#282722" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-              <path d="M66 97 Q80 91 94 97 Q80 100 66 97 Z" fill="#37352f"/>
-              <!-- Pincel en mano -->
-              <line x1="112" y1="138" x2="128" y2="88" stroke="#282722" stroke-width="2.5" stroke-linecap="round"/>
-              <path d="M126 89 C127 79, 134 76, 133 85 C132 90, 127 91, 126 89 Z" fill="#37352f"/>
-            </svg>
+            <img src="./assets/retratos/bellanger-rene-charles.png" alt="René Charles Bellanger">
           </div>
           <div class="info-artista">
             <strong>René Charles Bellanger</strong>
@@ -365,6 +337,65 @@
           </div>
         </a>
 
-        <!-- Artista 2: Roger Crusat (Caricatura: artista mediterráneo con bigote fino y paleta) -->
-        <a href="./artistes/roger-crusat/index.html" class="tarjeta-artista">
+        <!-- 2. Jean-Louis Appian -->
+        <a href="./artistes/jean-louis-appian/index.html" class="tarjeta-artista">
           <div class="marco-retrato">
+            <img src="./assets/retratos/jean-louis-appian.png" alt="Jean-Louis Appian">
+          </div>
+          <div class="info-artista">
+            <strong>Jean-Louis Appian</strong>
+            <span>1862–1896</span>
+          </div>
+        </a>
+
+        <!-- 3. Jean-Michel Deny -->
+        <a href="./artistes/jean-michel-deny/index.html" class="tarjeta-artista">
+          <div class="marco-retrato">
+            <img src="./assets/retratos/jean-michel-deny.png" alt="Jean-Michel Deny">
+          </div>
+          <div class="info-artista">
+            <strong>Jean-Michel Deny</strong>
+            <span>Né en 1950</span>
+          </div>
+        </a>
+
+        <!-- 4. Louis Latapie -->
+        <a href="./artistes/louis-latapie/index.html" class="tarjeta-artista">
+          <div class="marco-retrato">
+            <img src="./assets/retratos/louis-latapie.png" alt="Louis Latapie">
+          </div>
+          <div class="info-artista">
+            <strong>Louis Latapie</strong>
+            <span>1891–1972</span>
+          </div>
+        </a>
+
+      </div>
+
+      <div class="pie-catalogo">
+        Sélectionnez un artiste pour consulter sa biographie et ses œuvres
+      </div>
+
+    </div>
+  </section>
+</div>
+
+<script>
+  document.querySelectorAll('.tarjeta-artista').forEach(function(tarjeta) {
+    tarjeta.addEventListener('touchstart', function() {
+      this.classList.add('tocado');
+    }, { passive: true });
+
+    ['touchend', 'touchcancel', 'touchmove'].forEach(function(evento) {
+      tarjeta.addEventListener(evento, function() {
+        var el = this;
+        setTimeout(function() {
+          el.classList.remove('tocado');
+        }, 160);
+      }, { passive: true });
+    });
+  });
+</script>
+
+</body>
+</html>
